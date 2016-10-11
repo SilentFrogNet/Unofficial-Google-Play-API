@@ -1,8 +1,8 @@
 from bs4 import BeautifulSoup
 import urllib2
 
-# Unofficial Google Play API
-# Created by: Ilario Dal Grande <info@silentfrog.net>
+from pprint import pprint
+
 
 class GooglePlayApi :
 
@@ -49,19 +49,25 @@ class GooglePlayApi :
 
 		apps = []
 		for card in cards :
-			pkg = card['data-docid']
-			target = card.find('div', 'cover').find('a', 'card-click-target')
-			url = self.DOMAIN_URL + target['href']
-			appName = target['aria-label'].strip()
-			imgUrl = card.find('img', 'cover-image')['src']
-			appAuthor = card.find('a', 'subtitle')['title']
+			try :
+				pkg = card['data-docid']
+				target = card.find('div', 'cover').find('a', 'card-click-target')
+				url = self.DOMAIN_URL + target['href']
+				appName = target['aria-label'].strip()
+				imgUrl = card.find('img', 'cover-image')['src']
+				appAuthor = card.find('a', 'subtitle')['title']
 
-			app = {
-				'app_package': pkg,
-				'app_name': appName,
-				'app_author': appAuthor,
-				'app_url': url,
-				'app_icon_url': imgUrl
-			}
+				app = {
+					'app_package': pkg,
+					'app_name': appName,
+					'app_author': appAuthor,
+					'app_url': url,
+					'app_icon_url': imgUrl
+				}
+			except Exception as e :
+				print "Error! " + e
+				pass
 
 			apps.append(app)
+
+		return apps
