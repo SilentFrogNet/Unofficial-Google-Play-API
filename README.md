@@ -22,3 +22,8 @@ Add the following code into your app gradle file:
 In order to get the code to work, you need to install **BeautifulSoup** package
 
     sudo pip install BeautifulSoup
+
+To test the python app run the python script:
+
+    python testgpa.py my search string
+    
